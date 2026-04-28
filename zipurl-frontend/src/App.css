@@ -12,13 +12,13 @@ body {
   padding: 2rem 1rem;
 }
 
-/* ── Hero ── */
+
 .hero {
   text-align: center;
   margin-bottom: 2.5rem;
 }
 
-/* ── Logo ── */
+
 .logo {
   display: inline-flex;
   align-items: center;
@@ -56,7 +56,7 @@ body {
 
 .logo-text span { color: #85B7EB; }
 
-/* ── Heading ── */
+
 .hero h1 {
   font-size: 2.2rem;
   font-weight: 700;
@@ -72,7 +72,6 @@ body {
   color: #0C447C;
 }
 
-/* ── Card ── */
 .card {
   background: #fff;
   border: 0.5px solid #B5D4F4;
@@ -81,6 +80,7 @@ body {
   max-width: 600px;
   margin: 0 auto 1.5rem;
 }
+
 
 .url-input {
   width: 100%;
@@ -125,7 +125,7 @@ body {
 .btn:active { transform: scale(0.98); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-/* ── Result ── */
+
 .result-box {
   margin-top: 1rem;
   padding: 1rem;
@@ -183,7 +183,7 @@ body {
 .copy-btn:hover { background: #0C447C; }
 .copy-btn.copied { background: #0F6E56; }
 
-/* ── Error ── */
+
 .error-msg {
   margin-top: 0.75rem;
   font-size: 13px;
@@ -194,7 +194,7 @@ body {
   border-radius: 8px;
 }
 
-/* ── History ── */
+
 .history-section {
   max-width: 600px;
   margin: 0 auto;
@@ -273,7 +273,6 @@ body {
   text-overflow: ellipsis;
 }
 
-/* ── Spinner ── */
 .spinner {
   width: 16px;
   height: 16px;
