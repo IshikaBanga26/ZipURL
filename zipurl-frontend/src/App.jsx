@@ -19,7 +19,7 @@ export default function App() {
 
     setLoading(true);
     try {
-      const response = await fetch("/api/url/shorten", {
+      const response = await fetch("https://zipurl-ciac.onrender.com/api/url/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ originalUrl: url }),
