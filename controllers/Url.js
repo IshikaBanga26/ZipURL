@@ -13,11 +13,16 @@ export async function generateShortUrl(req, res) {
         }
         const shortId = nanoid(10);
 
+        let expiresAt = null;
+        if (expiresIn) {
+            expiresAt = new Date(Date.now() + expiresIn * 60 * 60 * 1000);
+        }
+
         const saveData = new UrlModel({originalUrl, shortId});
         await saveData.save();
 
         const shortUrl = `${req.protocol}://${req.get("host")}/${shortId}`;
-        return res.status(201).json({shortUrl});
+        return res.status(201).json({shortUrl, expiresAt });
     } catch (error) {
         console.error("Error generating short URL:", error);
         return res.status(500).json({error: "Internal server error"});
@@ -34,6 +39,11 @@ export async function redirectToUrl(req, res) {
 
         if(!urlData)
             return res.status(404).json({error: "Short URL not found"});
+
+        if (urlData.expiresAt && new Date() > urlData.expiresAt) {
+            return res.status(410).json({ error: "This link has expired" });
+        }
+        
         return res.redirect(urlData.originalUrl);
     } catch (error) {
         console.error("Error redirecting to original URL:", error);

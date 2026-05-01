@@ -7,6 +7,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
+  const [expiresIn, setExpiresIn] = useState("");
 
   async function handleShorten() {
     setError("");
@@ -22,7 +23,7 @@ export default function App() {
       const response = await fetch("https://zipurl-ciac.onrender.com/api/url/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ originalUrl: url }),
+        body: JSON.stringify({ originalUrl: url, expiresIn: expiresIn || null}),
       });
 
       const data = await response.json();
@@ -80,6 +81,18 @@ export default function App() {
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleShorten()}
         />
+        <select
+          className="expire-select"
+          value={expiresIn}
+          onChange={(e) => setExpiresIn(e.target.value)}
+        >
+          <option value="">Never expires</option>
+          <option value="1">1 hour</option>
+          <option value="24">24 hours</option>
+          <option value="168">7 days</option>
+          <option value="720">30 days</option>
+        </select>
+        
         <button className="btn" onClick={handleShorten} disabled={loading}>
           {loading ? <span className="spinner" /> : "Shorten →"}
         </button>

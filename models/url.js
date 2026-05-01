@@ -11,6 +11,10 @@ const urlSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    expiresAt: {
+        type: Date,
+        default: null  
     }
 });
 export default model('Url', urlSchema);
