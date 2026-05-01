@@ -110,7 +110,7 @@ export default function App() {
               <CopyButton text={shortUrl} />
             </div>
              <div className="clicks-count">
-              🖱️ <strong>{clicks} clicks</strong> so far
+              <strong>{clicks} clicks</strong> so far
             </div>
           </div>
         )}
