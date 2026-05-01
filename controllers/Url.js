@@ -44,9 +44,35 @@ export async function redirectToUrl(req, res) {
             return res.status(410).json({ error: "This link has expired" });
         }
 
+        await UrlModel.findOneAndUpdate(
+            { shortId },
+            { $inc: { clicks: 1 } }
+        );
+
         return res.redirect(urlData.originalUrl);
     } catch (error) {
         console.error("Error redirecting to original URL:", error);
         return res.status(500).json({error: "Internal server error"});
+    }
+}
+
+export async function getUrlStats(req, res) {
+    try {
+        const { shortId } = req.params;
+        const urlData = await UrlModel.findOne({ shortId });
+
+        if(!urlData)
+            return res.status(404).json({ error: "Short URL not found" });
+
+        return res.status(200).json({
+            originalUrl: urlData.originalUrl,
+            shortId: urlData.shortId,
+            clicks: urlData.clicks,
+            createdAt: urlData.createdAt,
+            expiresAt: urlData.expiresAt
+        });
+    } catch (error) {
+        console.error("Error fetching stats:", error);
+        return res.status(500).json({ error: "Internal server error" });
     }
 }

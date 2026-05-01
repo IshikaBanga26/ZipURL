@@ -8,10 +8,12 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState([]);
   const [expiresIn, setExpiresIn] = useState("");
+  const [clicks, setClicks] = useState(0);
 
   async function handleShorten() {
     setError("");
     setShortUrl("");
+    setClicks(0);
 
     if (!url.trim()) {
       setError("Please enter a URL");
@@ -34,6 +36,7 @@ export default function App() {
       }
 
       setShortUrl(data.shortUrl);
+      setClicks(data.clicks || 0);
       setHistory((prev) =>
         [{ original: url, short: data.shortUrl }, ...prev].slice(0, 10)
       );
@@ -105,6 +108,9 @@ export default function App() {
             <div className="result-row">
               <span className="short-url">{shortUrl}</span>
               <CopyButton text={shortUrl} />
+            </div>
+             <div className="clicks-count">
+              🖱️ <strong>{clicks} clicks</strong> so far
             </div>
           </div>
         )}

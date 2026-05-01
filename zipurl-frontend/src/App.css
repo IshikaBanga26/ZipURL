@@ -298,4 +298,11 @@ body {
   cursor: pointer;
 }
 
+.clicks-count {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #0C447C;
+  font-family: 'DM Mono', monospace;
+}
+
 @keyframes spin { to { transform: rotate(360deg); } }

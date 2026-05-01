@@ -15,6 +15,10 @@ const urlSchema = new Schema({
     expiresAt: {
         type: Date,
         default: null  
+    },
+    clicks: {
+        type: Number,
+        default: 0
     }
 });
 export default model('Url', urlSchema);
