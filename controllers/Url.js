@@ -4,7 +4,7 @@ import {isValidUrl} from '../services/urlValidation.js';
 
 export async function generateShortUrl(req, res) {
     try{
-        const{originalUrl} = req.body;
+        const{originalUrl, expiresIn} = req.body;
         if(!originalUrl){
             return res.status(400).json({error: "Original URL is required"});
         }
@@ -18,7 +18,7 @@ export async function generateShortUrl(req, res) {
             expiresAt = new Date(Date.now() + expiresIn * 60 * 60 * 1000);
         }
 
-        const saveData = new UrlModel({originalUrl, shortId});
+        const saveData = new UrlModel({originalUrl, shortId, expiresAt});
         await saveData.save();
 
         const shortUrl = `${req.protocol}://${req.get("host")}/${shortId}`;
@@ -43,7 +43,7 @@ export async function redirectToUrl(req, res) {
         if (urlData.expiresAt && new Date() > urlData.expiresAt) {
             return res.status(410).json({ error: "This link has expired" });
         }
-        
+
         return res.redirect(urlData.originalUrl);
     } catch (error) {
         console.error("Error redirecting to original URL:", error);
